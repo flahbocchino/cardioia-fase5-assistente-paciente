@@ -1,0 +1,122 @@
+{
+  "intents": [
+    {
+      "tag": "saudacao",
+      "tipo": "simples",
+      "frases": [
+        "oi", "olá", "ola", "bom dia", "boa tarde", "boa noite",
+        "tudo bem", "e ai", "oii", "opa", "quero conversar"
+      ],
+      "respostas": [
+        "Olá! Eu sou o assistente virtual do CardioIA. Posso te ajudar a entender melhor sintomas e dúvidas relacionadas à saúde do coração. Como você está se sentindo hoje?"
+      ]
+    },
+    {
+      "tag": "despedida",
+      "tipo": "simples",
+      "frases": [
+        "tchau", "até mais", "até logo", "vou indo", "falou", "adeus", "até a próxima"
+      ],
+      "respostas": [
+        "Até logo! Se sentir algo diferente, volte a conversar comigo. Cuide-se!"
+      ]
+    },
+    {
+      "tag": "agradecimento",
+      "tipo": "simples",
+      "frases": [
+        "obrigado", "obrigada", "valeu", "muito obrigado", "agradeço", "thanks"
+      ],
+      "respostas": [
+        "Por nada! Estou aqui pra ajudar no que precisar sobre sua saúde cardiovascular."
+      ]
+    },
+    {
+      "tag": "duvida_pressao_alta",
+      "tipo": "simples",
+      "frases": [
+        "o que é pressão alta", "hipertensão é perigosa", "pressão alta faz mal",
+        "como saber se tenho pressão alta", "sintomas de hipertensão"
+      ],
+      "respostas": [
+        "A pressão alta (hipertensão) acontece quando a força do sangue contra as artérias fica constantemente elevada. Ela costuma não dar sintomas claros, por isso é chamada de 'assassina silenciosa', e é um dos principais fatores de risco para infarto e AVC. O ideal é medir a pressão regularmente e conversar com um médico sobre os valores."
+      ]
+    },
+    {
+      "tag": "duvida_colesterol",
+      "tipo": "simples",
+      "frases": [
+        "o que é colesterol alto", "colesterol faz mal pro coração", "ldl e hdl",
+        "como baixar o colesterol"
+      ],
+      "respostas": [
+        "O colesterol alto (especialmente o LDL, o 'colesterol ruim') pode se acumular nas artérias e aumentar o risco de infarto. O HDL, o 'colesterol bom', ajuda a proteger o coração. Alimentação equilibrada, atividade física e acompanhamento médico regular ajudam a manter os níveis controlados."
+      ]
+    },
+    {
+      "tag": "duvida_tabagismo",
+      "tipo": "simples",
+      "frases": [
+        "fumar faz mal pro coração", "cigarro eletronico faz mal", "vaping e coração",
+        "parar de fumar ajuda o coração", "cigarro e pressão"
+      ],
+      "respostas": [
+        "Sim — fumar (incluindo cigarro eletrônico/vape) danifica os vasos sanguíneos, eleva a pressão arterial e acelera o acúmulo de placas nas artérias, aumentando bastante o risco de infarto. Parar de fumar é uma das ações com maior impacto positivo na saúde do coração, em qualquer idade."
+      ]
+    },
+    {
+      "tag": "sintoma_dor_peito",
+      "tipo": "sintoma",
+      "frases": [
+        "estou sentindo dor no peito", "meu peito está doendo", "sinto uma pressão no peito",
+        "dor no peito", "aperto no peito", "meu peito dói"
+      ]
+    },
+    {
+      "tag": "sintoma_falta_ar",
+      "tipo": "sintoma",
+      "frases": [
+        "não consigo respirar direito", "estou com falta de ar", "falta de ar",
+        "sinto que não entra ar", "respiração curta", "cansaço pra respirar"
+      ]
+    },
+    {
+      "tag": "sintoma_palpitacao",
+      "tipo": "sintoma",
+      "frases": [
+        "meu coração está acelerado", "sinto palpitações", "meu coração dispara",
+        "coração batendo forte", "sinto o coração pulando"
+      ]
+    },
+    {
+      "tag": "sintoma_tontura",
+      "tipo": "sintoma",
+      "frases": [
+        "estou tonto", "sinto tontura", "estou zonzo", "sensação de desmaio",
+        "vista embaçada e tontura"
+      ]
+    },
+    {
+      "tag": "emergencia",
+      "tipo": "emergencia",
+      "frases": [
+        "acho que estou tendo um infarto", "socorro", "preciso de ajuda urgente",
+        "isso é uma emergência", "dor forte no peito e falta de ar"
+      ],
+      "respostas": [
+        "Isso pode ser uma emergência. Procure atendimento médico IMEDIATAMENTE — ligue para o SAMU (192) ou vá ao pronto-socorro mais próximo agora. Este assistente é uma simulação educacional e não substitui atendimento médico real."
+      ]
+    },
+    {
+      "tag": "fora_do_escopo",
+      "tipo": "simples",
+      "frases": [
+        "qual a previsão do tempo", "conta uma piada", "que horas são",
+        "qual o resultado do jogo", "quem descobriu o brasil"
+      ],
+      "respostas": [
+        "Eu sou especializado em orientação inicial sobre saúde cardiovascular, então não consigo ajudar com esse assunto. Posso te ajudar com sintomas, pressão alta, colesterol ou tabagismo, por exemplo."
+      ]
+    }
+  ]
+}
