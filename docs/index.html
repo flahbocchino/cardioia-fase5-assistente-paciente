@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CardioIA - Assistente Cardiológico Inteligente</title>
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    background: linear-gradient(135deg, #fdf2f2 0%, #f5f7fa 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .app {
+    width: 100%;
+    max-width: 480px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 640px;
+  }
+
+  header {
+    background: linear-gradient(135deg, #c62828, #8e1c1c);
+    color: white;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  header .icone {
+    font-size: 28px;
+  }
+
+  header h1 {
+    font-size: 16px;
+    margin: 0;
+  }
+
+  header p {
+    font-size: 12px;
+    margin: 2px 0 0;
+    opacity: 0.85;
+  }
+
+  #status-badge {
+    margin-left: auto;
+    font-size: 11px;
+    background: rgba(255,255,255,0.18);
+    padding: 4px 8px;
+    border-radius: 999px;
+  }
+
+  #chat {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #f7f7f9;
+  }
+
+  .msg {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 1.4;
+    white-space: pre-wrap;
+  }
+
+  .msg.bot {
+    background: white;
+    border: 1px solid #eee;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+  }
+
+  .msg.user {
+    background: #c62828;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+  }
+
+  .msg.aviso {
+    align-self: center;
+    background: #fff3cd;
+    color: #7a5b00;
+    font-size: 12px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .digitando {
+    align-self: flex-start;
+    font-size: 13px;
+    color: #999;
+    padding: 4px 14px;
+    font-style: italic;
+  }
+
+  form#form-envio {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid #eee;
+    background: white;
+  }
+
+  #campo-mensagem {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-size: 14px;
+    outline: none;
+  }
+
+  #campo-mensagem:focus {
+    border-color: #c62828;
+  }
+
+  #btn-enviar {
+    background: #c62828;
+    color: white;
+    border: none;
+    border-radius: 999px;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  #btn-enviar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .rodape-legal {
+    font-size: 10px;
+    text-align: center;
+    color: #999;
+    padding: 6px 12px 10px;
+    background: white;
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <div class="icone">🫀</div>
+    <div>
+      <h1>CardioIA</h1>
+      <p>Assistente Cardiológico Inteligente</p>
+    </div>
+    <div id="status-badge">verificando...</div>
+  </header>
+
+  <div id="chat"></div>
+
+  <form id="form-envio">
+    <input
+      type="text"
+      id="campo-mensagem"
+      placeholder="Digite como você está se sentindo..."
+      autocomplete="off"
+      required
+    />
+    <button type="submit" id="btn-enviar">➤</button>
+  </form>
+
+  <div class="rodape-legal">
+    Projeto acadêmico CardioIA (FIAP) — não substitui avaliação médica real.
+  </div>
+</div>
+
+<script>
+  // ATENÇÃO: troque a URL abaixo pela URL real do seu backend no Render
+  // (a mesma que você testou no navegador e viu o JSON "status: online").
+  const URL_BACKEND = "https://cardioia-fase5-assistente-paciente.onrender.com";
+
+  const chat = document.getElementById("chat");
+  const form = document.getElementById("form-envio");
+  const campoMensagem = document.getElementById("campo-mensagem");
+  const botaoEnviar = document.getElementById("btn-enviar");
+  const statusBadge = document.getElementById("status-badge");
+
+  // ID de sessão único por aba do navegador, pra o backend manter o
+  // contexto da conversa (equivalente ao "contexto" do Watson).
+  const sessionId = "sessao-" + Math.random().toString(36).substring(2, 10);
+
+  function adicionarMensagem(texto, tipo) {
+    const div = document.createElement("div");
+    div.className = "msg " + tipo;
+    div.textContent = texto;
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function mostrarDigitando() {
+    const div = document.createElement("div");
+    div.className = "digitando";
+    div.id = "indicador-digitando";
+    div.textContent = "Assistente está digitando...";
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function removerDigitando() {
+    const el = document.getElementById("indicador-digitando");
+    if (el) el.remove();
+  }
+
+  async function verificarBackend() {
+    try {
+      const resposta = await fetch(URL_BACKEND + "/");
+      if (resposta.ok) {
+        statusBadge.textContent = "online";
+      } else {
+        statusBadge.textContent = "instável";
+      }
+    } catch (erro) {
+      statusBadge.textContent = "offline";
+      adicionarMensagem(
+        "Não consegui conectar ao servidor agora. Se o backend estiver 'dormindo' (plano gratuito), pode levar até 50 segundos para acordar. Tente enviar uma mensagem mesmo assim.",
+        "aviso"
+      );
+    }
+  }
+
+  async function enviarMensagem(texto) {
+    adicionarMensagem(texto, "user");
+    campoMensagem.value = "";
+    botaoEnviar.disabled = true;
+    mostrarDigitando();
+
+    try {
+      const resposta = await fetch(URL_BACKEND + "/mensagem", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: sessionId, mensagem: texto })
+      });
+
+      const dados = await resposta.json();
+      removerDigitando();
+
+      if (resposta.ok) {
+        adicionarMensagem(dados.resposta, "bot");
+      } else {
+        adicionarMensagem("Erro: " + (dados.erro || "algo deu errado."), "aviso");
+      }
+    } catch (erro) {
+      removerDigitando();
+      adicionarMensagem(
+        "Não consegui falar com o servidor. Verifique sua conexão ou tente novamente em alguns segundos.",
+        "aviso"
+      );
+    } finally {
+      botaoEnviar.disabled = false;
+      campoMensagem.focus();
+    }
+  }
+
+  form.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+    const texto = campoMensagem.value.trim();
+    if (texto) {
+      enviarMensagem(texto);
+    }
+  });
+
+  // Mensagem inicial + checagem de status ao carregar a página
+  adicionarMensagem(
+    "Olá! Sou o assistente virtual do CardioIA. Conte como você está se sentindo, ou tire dúvidas sobre pressão alta, colesterol e tabagismo.",
+    "bot"
+  );
+  verificarBackend();
+</script>
+
+</body>
+</html>
