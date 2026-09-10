@@ -1,0 +1,81 @@
+[
+  {
+    "texto_original": "Paciente relata dor no peito de início súbito há cerca de 40 minutos,\n    caracterizada como aperto, irradiando para o braço esquerdo. Refere\n    também sudorese e falta de ar. Pressão arterial aferida: 158/98 mmHg.\n    Frequência cardíaca: 110 bpm. Paciente é tabagista há 15 anos (cerca de\n    1 maço/dia) e faz uso contínuo de Losartana 50mg. Nega uso de outras\n    medicações.",
+    "dados_extraidos": {
+      "idade": null,
+      "sexo": null,
+      "sintomas": [
+        "dor no peito em aperto com irradiação para o braço esquerdo",
+        "sudorese",
+        "falta de ar"
+      ],
+      "tempo_sintomas": "cerca de 40 minutos",
+      "sinais_vitais": {
+        "pressao_arterial": "158/98 mmHg",
+        "frequencia_cardiaca_bpm": 110
+      },
+      "tabagismo": {
+        "status": "tabagista",
+        "detalhes": "há 15 anos, cerca de 1 maço/dia"
+      },
+      "comorbidades": [],
+      "medicacoes_em_uso": [
+        "Losartana 50mg"
+      ],
+      "historico_familiar": null,
+      "nivel_urgencia_sugerido": "alto"
+    }
+  },
+  {
+    "texto_original": "Paciente do sexo feminino, 34 anos, comparece à consulta de rotina.\n    Nega dor torácica ou falta de ar. Relata palpitações ocasionais,\n    principalmente após consumo de café. Pressão arterial: 112/74 mmHg.\n    Frequência cardíaca: 78 bpm. Não fumante. Histórico familiar de\n    hipertensão (mãe). Nenhuma medicação em uso.",
+    "dados_extraidos": {
+      "idade": 34,
+      "sexo": "feminino",
+      "sintomas": [
+        "palpitações ocasionais"
+      ],
+      "tempo_sintomas": null,
+      "sinais_vitais": {
+        "pressao_arterial": "112/74 mmHg",
+        "frequencia_cardiaca_bpm": 78
+      },
+      "tabagismo": {
+        "status": "nao_fumante",
+        "detalhes": null
+      },
+      "comorbidades": [],
+      "medicacoes_em_uso": [],
+      "historico_familiar": "Hipertensão (mãe)",
+      "nivel_urgencia_sugerido": "baixo"
+    }
+  },
+  {
+    "texto_original": "Paciente masculino, 58 anos, ex-tabagista (parou há 3 anos, fumou por\n    20 anos). Relata falta de ar progressiva aos esforços nas últimas 2\n    semanas, e episódios de tontura. Pressão arterial: 145/92 mmHg.\n    Frequência cardíaca: 95 bpm. Colesterol total (último exame): 240 mg/dL.\n    Diabético tipo 2, em uso de Metformina 850mg 2x/dia.",
+    "dados_extraidos": {
+      "idade": 58,
+      "sexo": "masculino",
+      "sintomas": [
+        "falta de ar progressiva aos esforços",
+        "episódios de tontura"
+      ],
+      "tempo_sintomas": "2 semanas",
+      "sinais_vitais": {
+        "pressao_arterial": "145/92 mmHg",
+        "frequencia_cardiaca_bpm": 95
+      },
+      "tabagismo": {
+        "status": "ex-tabagista",
+        "detalhes": "parou há 3 anos, fumou por 20 anos"
+      },
+      "comorbidades": [
+        "diabetes tipo 2",
+        "hipercolesterolemia"
+      ],
+      "medicacoes_em_uso": [
+        "Metformina 850mg 2x/dia"
+      ],
+      "historico_familiar": null,
+      "nivel_urgencia_sugerido": "medio"
+    }
+  }
+]
